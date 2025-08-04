@@ -5,7 +5,7 @@ use Livewire\Volt\Volt;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('welcome');
 
 // Dashboard route
 Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
@@ -16,6 +16,15 @@ Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'ind
 Route::prefix('cafeteria')->group(function() {
     // Public routes
     Route::get('/menu', [\App\Http\Controllers\MenuController::class, 'index'])->name('menu');
+    Route::get('/menu/item/{id}', [\App\Http\Controllers\MenuController::class, 'show'])->name('menu.item');
+    Route::get('/menu/category/{categoryId}', [\App\Http\Controllers\MenuController::class, 'category'])->name('menu.category');
+    
+    // Time-specific menus
+    Route::get('/menu/morning', [\App\Http\Controllers\MenuController::class, 'morningMenu'])->name('menu.morning');
+    Route::get('/menu/lunch', [\App\Http\Controllers\MenuController::class, 'lunchMenu'])->name('menu.lunch');
+    Route::get('/menu/afternoon-evening', [\App\Http\Controllers\MenuController::class, 'afternoonEveningMenu'])->name('menu.afternoon-evening');
+    Route::get('/menu/night', [\App\Http\Controllers\MenuController::class, 'nightMenu'])->name('menu.night');
+    Route::get('/menu/general', [\App\Http\Controllers\MenuController::class, 'generalMenu'])->name('menu.general');
     
     // Authenticated routes
     Route::middleware(['auth'])->group(function() {

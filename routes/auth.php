@@ -29,6 +29,11 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'auth.confirm-password')
         ->name('password.confirm');
+        
+    // Profile routes
+    Route::get('profile', function() {
+        return redirect()->route('settings.profile');
+    })->name('profile.edit');
 });
 
 Route::post('logout', App\Livewire\Actions\Logout::class)
